@@ -53,13 +53,13 @@ export default function Home() {
               Explore Courses
               <ArrowRight size={20} />
             </Link>
-            <Link
-              href="/curriculum.pdf"
+            <a
+              href="mailto:info@upcomingengineer.com?subject=Request%20for%20Curriculum%20PDF&body=Hello,%20I%20would%20like%20to%20request%20the%20curriculum%20PDF%20for%20The%20School%20of%20Robotics."
               className="px-8 py-4 border-2 border-[#00D9FF] text-[#00D9FF] font-semibold rounded-lg hover:bg-[#00D9FF]/10 transition-colors flex items-center gap-2 text-lg"
             >
               <Download size={20} />
               Download Curriculum PDF
-            </Link>
+            </a>
           </motion.div>
 
           {/* Rotating Tagline */}

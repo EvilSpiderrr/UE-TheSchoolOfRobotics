@@ -28,12 +28,18 @@ export default function RoboticsBackground() {
       {isMounted && (
         <video
           ref={videoRef}
-          className="absolute inset-0 w-full h-full object-cover opacity-[0.15]"
+          className="absolute inset-0 w-full h-full object-cover opacity-[0.15] min-w-full min-h-full"
           autoPlay
           loop
           muted
           playsInline
           preload="auto"
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: 'center',
+          }}
         >
           <source src="/bg-video.mp4" type="video/mp4" />
         </video>
