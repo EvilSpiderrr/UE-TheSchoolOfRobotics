@@ -1,0 +1,37 @@
+# Upcoming Engineer - The School of Robotics
+
+A Next.js website with a full-page robotics background animation.
+
+## Setup Instructions
+
+1. Install dependencies:
+```bash
+npm install
+```
+
+2. Add your logo:
+   - Place your logo image in the `public` folder as `logo.png`
+   - The logo component will automatically use it
+
+3. Run the development server:
+```bash
+npm run dev
+```
+
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
+
+## Project Structure
+
+- `app/` - Next.js App Router pages and layout
+- `components/Background/` - Background animation components
+- `components/Logo.tsx` - Logo component
+- `public/` - Static assets (place logo.png here)
+
+## Background Animation
+
+The website features a 3-layer background animation system:
+- **Layer 1**: Animated blueprint grid (base layer)
+- **Layer 2**: Circuit flow lines (middle layer)
+- **Layer 3**: Floating particles (top layer)
+
+All animations are subtle, slow-moving, and engineering-grade as per the design specifications.
