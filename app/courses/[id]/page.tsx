@@ -4,6 +4,7 @@ import { useParams } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft, CheckCircle2, Code, Target, Clock, Award } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { getPreferredForText } from '@/lib/coursePreferences'
 
 const courseData: Record<string, {
   title: string
@@ -239,7 +240,15 @@ export default function CourseDetailPage() {
               {course.level}
             </span>
           </div>
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">{course.title}</h1>
+          <h1 className="text-5xl md:text-6xl font-bold mb-2">{course.title}</h1>
+          {(() => {
+            const preferredText = getPreferredForText(id)
+            return preferredText ? (
+              <p className="text-base md:text-lg text-[#EDEDED]/60 mb-6 break-words">
+                {preferredText}
+              </p>
+            ) : null
+          })()}
           <p className="text-xl text-[#EDEDED]/80 mb-8">{course.description}</p>
           
           <div className="flex flex-wrap gap-6 text-[#EDEDED]/60">

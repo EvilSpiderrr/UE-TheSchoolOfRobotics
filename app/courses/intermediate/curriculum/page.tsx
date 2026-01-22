@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { ArrowLeft, Clock, CheckCircle2, BookOpen, Target } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { getPreferredForText } from '@/lib/coursePreferences'
 
 const modules = [
   {
@@ -148,7 +149,11 @@ export default function IntermediateCurriculumPage() {
           transition={{ duration: 0.6 }}
           className="mb-12"
         >
-          <h1 className="text-5xl md:text-6xl font-bold mb-4">Intermediate Robotics – Autonomous Systems</h1>
+          <h1 className="text-5xl md:text-6xl font-bold mb-2">Intermediate Robotics – Autonomous Systems</h1>
+          {(() => {
+            const t = getPreferredForText('intermediate')
+            return t ? <p className="text-sm md:text-base text-[#EDEDED]/60 mb-4 break-words">{t}</p> : null
+          })()}
           <p className="text-xl text-[#EDEDED]/80 mb-6">Complete Curriculum (30 hours)</p>
           <div className="flex items-center gap-6 text-[#EDEDED]/60">
             <div className="flex items-center gap-2">

@@ -4,10 +4,10 @@ import { Resend } from 'resend'
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { name, email, topic, message } = body
+    const { firstName, lastName, email, course, background } = body
 
     // Validate required fields
-    if (!name || !email || !message) {
+    if (!firstName || !lastName || !email || !course) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
@@ -16,14 +16,14 @@ export async function POST(request: NextRequest) {
 
     // Format email body
     const emailBody = `
-New Mentor Session Request
+New Enrollment Request
 
-Name: ${name}
+Name: ${firstName} ${lastName}
 Email: ${email}
-Topic: ${topic || 'Not specified'}
+Course Interest: ${course}
 
-Message:
-${message}
+Background:
+${background || 'Not provided'}
     `.trim()
 
     // Send email using Resend (lazy init so app runs without API key)
@@ -32,19 +32,19 @@ ${message}
       if (apiKey) {
         const resend = new Resend(apiKey)
         await resend.emails.send({
-          from: 'noreply@upcomingengineer.com',
-          to: 'info@upcomingengineer.com',
-          replyTo: email,
-          subject: 'New Mentor Session Request',
-          text: emailBody,
-          html: `
-            <h2>New Mentor Session Request</h2>
-            <p><strong>Name:</strong> ${name}</p>
-            <p><strong>Email:</strong> ${email}</p>
-            <p><strong>Topic:</strong> ${topic || 'Not specified'}</p>
-            <h3>Message:</h3>
-            <p>${message.replace(/\n/g, '<br>')}</p>
-          `,
+        from: 'noreply@upcomingengineer.com',
+        to: 'info@upcomingengineer.com',
+        replyTo: email,
+        subject: 'New Enrollment Request - The School of Robotics',
+        text: emailBody,
+        html: `
+          <h2>New Enrollment Request</h2>
+          <p><strong>Name:</strong> ${firstName} ${lastName}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Course Interest:</strong> ${course}</p>
+          <h3>Background:</h3>
+          <p>${background ? background.replace(/\n/g, '<br>') : 'Not provided'}</p>
+        `,
         })
       } else {
         console.warn('RESEND_API_KEY not set. Email not sent, but request logged.')
@@ -57,14 +57,14 @@ ${message}
     return NextResponse.json(
       { 
         success: true, 
-        message: 'Your request has been submitted. We will contact you soon!' 
+        message: 'Your enrollment request has been submitted. We will contact you soon!' 
       },
       { status: 200 }
     )
   } catch (error) {
-    console.error('Error sending email:', error)
+    console.error('Error sending enrollment email:', error)
     return NextResponse.json(
-      { error: 'Failed to send email' },
+      { error: 'Failed to submit enrollment request' },
       { status: 500 }
     )
   }
