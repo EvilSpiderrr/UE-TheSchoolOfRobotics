@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { Download, ArrowRight, Clock, Code, Target, Play, Cpu, Users, CheckCircle2, Briefcase, TrendingUp, Zap, Trophy, Flame, Award } from 'lucide-react'
 import { motion } from 'framer-motion'
 import IndustryCardsSlider from '@/components/IndustryCardsSlider'
+import { getPreferredForText } from '@/lib/coursePreferences'
 
 const taglines = [
   "Not Another Robotics Course. This Is the Robotics Industry.",
@@ -143,7 +144,9 @@ export default function Home() {
               { id: 'advanced', title: 'Advanced Robotics', level: 'Advanced', duration: '30 hours' },
               { id: 'ai-vision', title: 'AI & Vision', level: 'Advanced', duration: '30 hours' },
               { id: 'drones', title: 'Drone Programming', level: 'Intermediate', duration: '30 hours' },
-            ].map((course, index) => (
+            ].map((course, index) => {
+              const preferredText = getPreferredForText(course.id)
+              return (
               <motion.div
                 key={course.id}
                 initial={{ opacity: 0, y: 30 }}
@@ -157,7 +160,10 @@ export default function Home() {
                     {course.level}
                   </span>
                 </div>
-                <h3 className="text-2xl font-bold mb-4">{course.title}</h3>
+                <h3 className="text-2xl font-bold mb-2">{course.title}</h3>
+                {preferredText && (
+                  <p className="text-sm text-[#EDEDED]/60 mb-4 break-words">{preferredText}</p>
+                )}
                 <div className="flex items-center gap-2 text-[#EDEDED]/60 mb-6">
                   <Clock size={16} />
                   <span className="text-sm">{course.duration}</span>
@@ -170,7 +176,8 @@ export default function Home() {
                   <ArrowRight size={18} />
                 </Link>
               </motion.div>
-            ))}
+              )
+            })}
           </div>
 
           <div className="text-center">

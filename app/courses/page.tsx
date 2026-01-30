@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { ArrowRight, Clock, Code, Target } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { getPreferredForText } from '@/lib/coursePreferences'
 
 const courses = [
   {
@@ -74,7 +75,9 @@ export default function CoursesPage() {
 
         {/* Course Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {courses.map((course, index) => (
+          {courses.map((course, index) => {
+            const preferredText = getPreferredForText(course.id)
+            return (
             <motion.div
               key={course.id}
               initial={{ opacity: 0, y: 30 }}
@@ -89,7 +92,12 @@ export default function CoursesPage() {
                 </span>
               </div>
               
-              <h3 className="text-2xl font-bold mb-4">{course.title}</h3>
+              <h3 className="text-2xl font-bold mb-2">{course.title}</h3>
+              {preferredText && (
+                <p className="text-sm text-[#EDEDED]/60 mb-4 break-words">
+                  {preferredText}
+                </p>
+              )}
               <p className="text-[#EDEDED]/70 mb-6 leading-relaxed">{course.description}</p>
 
               <div className="space-y-3 mb-6">
@@ -121,7 +129,8 @@ export default function CoursesPage() {
                 <ArrowRight size={18} />
               </Link>
             </motion.div>
-          ))}
+            )
+          })}
         </div>
       </div>
     </main>
